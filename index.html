@@ -19,9 +19,9 @@
                 <span class="logo-text">Perihelion</span>
             </a>
             <ul class="nav-links" id="navLinks">
+                <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#approach">Approach</a></li>
-                <li><a href="#platform">Platform</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="contact.html" class="btn btn-nav">Get in Touch</a></li>
             </ul>
@@ -104,6 +104,189 @@
                     <h3>Regulatory Exposure</h3>
                     <p>Inability to prove resilience posture to regulators immediately. Evidence gathering takes weeks, not minutes.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Architecture Demo Section -->
+    <section class="architecture-section" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live Visualization</span>
+                <h2>See Your Trading Systems as They Really Are</h2>
+                <p class="section-subtitle">Real-time dependency mapping, data flow visualization, and blast radius analysis</p>
+            </div>
+        </div>
+        <div class="architecture-demo">
+            <div class="architecture-canvas" id="archCanvas">
+                <!-- Status Bar -->
+                <div class="arch-status-bar">
+                    <div class="arch-status-item">
+                        <div class="arch-status-dot"></div>
+                        <span>All Systems Operational</span>
+                    </div>
+                    <div class="arch-status-item" id="archWarning">
+                        <div class="arch-status-dot warning"></div>
+                        <span>Latency Warning: Risk Engine</span>
+                    </div>
+                    <div class="arch-status-item" id="archIncident" style="display: none;">
+                        <div class="arch-status-dot critical"></div>
+                        <span>Incident Detected</span>
+                    </div>
+                </div>
+
+                <!-- SVG Layer for Connections -->
+                <svg class="arch-connections" id="archConnections"></svg>
+
+                <!-- External Sources -->
+                <div class="arch-node external" data-node="market-data" style="top: 30px; left: 5%;">
+                    <div class="arch-node-icon">📊</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Market Data</div>
+                        <div class="arch-node-metric"><span class="metric-val" id="mdRate">1.2M</span> msg/s</div>
+                    </div>
+                </div>
+
+                <div class="arch-node external" data-node="fix-gateway" style="top: 30px; left: 25%;">
+                    <div class="arch-node-icon">🔌</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">FIX Gateway</div>
+                        <div class="arch-node-metric"><span class="metric-val">42</span> sessions</div>
+                    </div>
+                </div>
+
+                <div class="arch-node external" data-node="client-orders" style="top: 30px; right: 25%;">
+                    <div class="arch-node-icon">📥</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Client Orders</div>
+                        <div class="arch-node-metric"><span class="metric-val" id="orderRate">847</span> ord/s</div>
+                    </div>
+                </div>
+
+                <div class="arch-node external" data-node="web-api" style="top: 30px; right: 5%;">
+                    <div class="arch-node-icon">🌐</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">REST API</div>
+                        <div class="arch-node-metric"><span class="metric-val">2.1k</span> req/s</div>
+                    </div>
+                </div>
+
+                <!-- Core Layer -->
+                <div class="arch-node core" data-node="oms" style="top: 140px; left: 20%;">
+                    <div class="arch-node-icon">📋</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Order Management</div>
+                        <div class="arch-node-metric"><span class="metric-val good" id="omsLatency">1.2ms</span> p99</div>
+                    </div>
+                </div>
+
+                <div class="arch-node core" data-node="ems" style="top: 140px; right: 20%;">
+                    <div class="arch-node-icon">⚡</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Execution Mgmt</div>
+                        <div class="arch-node-metric"><span class="metric-val good">0.8ms</span> routing</div>
+                    </div>
+                </div>
+
+                <!-- Matching Engine - Central -->
+                <div class="arch-node matching" data-node="matching-engine" style="top: 250px; left: 50%; transform: translateX(-50%);">
+                    <div class="arch-node-icon">🎯</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Matching Engine</div>
+                        <div class="arch-node-metric"><span class="metric-val" id="meMatches">4,521</span> matches/s</div>
+                        <div class="arch-node-metric"><span class="metric-val good" id="meLatency">45μs</span> latency</div>
+                    </div>
+                </div>
+
+                <!-- Risk Layer -->
+                <div class="arch-node risk" data-node="risk-engine" style="top: 250px; left: 8%;">
+                    <div class="arch-node-icon">🛡️</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Risk Engine</div>
+                        <div class="arch-node-metric"><span class="metric-val warning" id="riskLatency">4.2ms</span> check</div>
+                    </div>
+                </div>
+
+                <div class="arch-node risk" data-node="surveillance" style="top: 250px; right: 8%;">
+                    <div class="arch-node-icon">👁️</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Surveillance</div>
+                        <div class="arch-node-metric"><span class="metric-val">3</span> alerts</div>
+                    </div>
+                </div>
+
+                <!-- Data Layer -->
+                <div class="arch-node data" data-node="position-keeper" style="top: 360px; left: 18%;">
+                    <div class="arch-node-icon">📊</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Positions</div>
+                        <div class="arch-node-metric"><span class="metric-val good">+$1.2M</span></div>
+                    </div>
+                </div>
+
+                <div class="arch-node data" data-node="trade-db" style="top: 360px; left: 50%; transform: translateX(-50%);">
+                    <div class="arch-node-icon">💾</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Trade Store</div>
+                        <div class="arch-node-metric"><span class="metric-val" id="dbWrites">12k</span> writes/s</div>
+                    </div>
+                </div>
+
+                <div class="arch-node downstream" data-node="clearing" style="top: 360px; right: 18%;">
+                    <div class="arch-node-icon">🏦</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Clearing</div>
+                        <div class="arch-node-metric"><span class="metric-val good">Connected</span></div>
+                    </div>
+                </div>
+
+                <!-- Regulatory -->
+                <div class="arch-node downstream" data-node="regulatory" style="top: 460px; left: 50%; transform: translateX(-50%);">
+                    <div class="arch-node-icon">📜</div>
+                    <div class="arch-node-info">
+                        <div class="arch-node-title">Regulatory Reporting</div>
+                        <div class="arch-node-metric">ASIC / MAS / HKMA</div>
+                    </div>
+                </div>
+
+                <!-- Incident Overlay -->
+                <div class="arch-incident" id="archIncidentOverlay">
+                    <div class="arch-incident-header">
+                        <span class="arch-incident-icon">⚠️</span>
+                        <div>
+                            <div class="arch-incident-title">Risk Engine Degradation</div>
+                            <div class="arch-incident-time">Detected 3 seconds ago</div>
+                        </div>
+                    </div>
+                    <p class="arch-incident-desc">Pre-trade risk check latency exceeded 10ms threshold. Order flow automatically throttled.</p>
+                    <div class="arch-blast-radius">
+                        <span class="arch-blast-label">BLAST RADIUS:</span>
+                        <span class="arch-affected">OMS</span>
+                        <span class="arch-affected">EMS</span>
+                        <span class="arch-affected">Matching</span>
+                        <span class="arch-affected">Orders</span>
+                    </div>
+                </div>
+
+                <!-- Throughput -->
+                <div class="arch-throughput">
+                    <div class="arch-throughput-label">System Throughput</div>
+                    <div class="arch-throughput-value"><span id="archThroughput">847,293</span> msg/s</div>
+                    <div class="arch-throughput-chart" id="archThroughputChart"></div>
+                </div>
+
+                <!-- Legend -->
+                <div class="arch-legend">
+                    <div class="arch-legend-item"><span class="arch-legend-dot market"></span> Market Data</div>
+                    <div class="arch-legend-item"><span class="arch-legend-dot order"></span> Order Flow</div>
+                    <div class="arch-legend-item"><span class="arch-legend-dot trade"></span> Trades</div>
+                    <div class="arch-legend-item"><span class="arch-legend-dot risk"></span> Risk</div>
+                </div>
+            </div>
+
+            <div class="architecture-cta">
+                <a href="demo.html" class="btn btn-primary">Explore Full Demo →</a>
+                <p class="architecture-cta-note">Interactive blast radius simulation • Incident cascade visualization</p>
             </div>
         </div>
     </section>
@@ -252,50 +435,58 @@
                             <span>Can we prove this to a regulator immediately?</span>
                         </li>
                     </ul>
-                    <a href="contact.html" class="btn btn-primary">Request Early Access</a>
+                    <div class="platform-cta-group">
+                        <a href="contact.html" class="btn btn-primary">Request Early Access</a>
+                        <a href="demo.html" class="btn btn-secondary btn-demo">View Live Demo →</a>
+                    </div>
                 </div>
                 <div class="platform-visual">
-                    <div class="platform-mockup">
-                        <div class="mockup-header">
-                            <div class="mockup-dots">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <span class="mockup-title">Systems Assurance Dashboard</span>
-                        </div>
-                        <div class="mockup-content">
-                            <div class="mockup-sidebar">
-                                <div class="sidebar-item active"></div>
-                                <div class="sidebar-item"></div>
-                                <div class="sidebar-item"></div>
-                                <div class="sidebar-item"></div>
-                            </div>
-                            <div class="mockup-main">
-                                <div class="mockup-graph">
-                                    <div class="graph-node central"></div>
-                                    <div class="graph-node"></div>
-                                    <div class="graph-node"></div>
-                                    <div class="graph-node"></div>
-                                    <div class="graph-node alert"></div>
-                                    <svg class="graph-lines">
-                                        <line x1="50%" y1="50%" x2="20%" y2="20%"></line>
-                                        <line x1="50%" y1="50%" x2="80%" y2="25%"></line>
-                                        <line x1="50%" y1="50%" x2="25%" y2="75%"></line>
-                                        <line x1="50%" y1="50%" x2="75%" y2="80%"></line>
-                                    </svg>
+                    <a href="demo.html" class="demo-preview-link">
+                        <div class="platform-mockup">
+                            <div class="mockup-header">
+                                <div class="mockup-dots">
+                                    <span></span><span></span><span></span>
                                 </div>
-                                <div class="mockup-metrics">
-                                    <div class="metric-card green">
-                                        <span class="metric-label">Resilience Score</span>
-                                        <span class="metric-value">94%</span>
+                                <span class="mockup-title">Live Trading System Architecture</span>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-sidebar">
+                                    <div class="sidebar-item active"></div>
+                                    <div class="sidebar-item"></div>
+                                    <div class="sidebar-item"></div>
+                                    <div class="sidebar-item"></div>
+                                </div>
+                                <div class="mockup-main">
+                                    <div class="mockup-graph">
+                                        <div class="graph-node central"></div>
+                                        <div class="graph-node"></div>
+                                        <div class="graph-node"></div>
+                                        <div class="graph-node"></div>
+                                        <div class="graph-node alert"></div>
+                                        <svg class="graph-lines">
+                                            <line x1="50%" y1="50%" x2="20%" y2="20%"></line>
+                                            <line x1="50%" y1="50%" x2="80%" y2="25%"></line>
+                                            <line x1="50%" y1="50%" x2="25%" y2="75%"></line>
+                                            <line x1="50%" y1="50%" x2="75%" y2="80%"></line>
+                                        </svg>
                                     </div>
-                                    <div class="metric-card amber">
-                                        <span class="metric-label">Open Risks</span>
-                                        <span class="metric-value">3</span>
+                                    <div class="mockup-metrics">
+                                        <div class="metric-card green">
+                                            <span class="metric-label">Resilience Score</span>
+                                            <span class="metric-value">94%</span>
+                                        </div>
+                                        <div class="metric-card amber">
+                                            <span class="metric-label">Open Risks</span>
+                                            <span class="metric-value">3</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="demo-overlay">
+                                <span>Click to view live demo</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
